@@ -32,7 +32,7 @@ augroup endwise " {{{1
         \ let b:endwise_pattern = '\%(\<End\>.*\)\@<!\<&\>' |
         \ let b:endwise_syngroups = 'vbStatement,vbnetStorage,vbnetProcedure,vbnet.*Words,AspVBSStatement'
   autocmd FileType vim
-        \ let b:endwise_addition = 'end&' |
+        \ let b:endwise_addition = '\=submatch(0)[0:1]=="fu" ? "endf" : submatch(0)=="if" ? "end" : "end".submatch(0)' |
         \ let b:endwise_words = 'fu\%[nction],wh\%[ile],if,for,try' |
         \ let b:endwise_syngroups = 'vimFuncKey,vimNotFunc,vimCommand'
   autocmd FileType c,cpp,xdefaults
