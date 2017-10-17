@@ -32,7 +32,7 @@ augroup endwise " {{{1
         \ let b:endwise_pattern = '^\(.*=\)\?\s*\%(private\s\+\|protected\s\+\|public\s\+\|abstract\s\+\)*\zs\%(module\|class\|lib\|macro\|struct\|union\|enum\|def\|if\|unless\|ifdef\|case\|while\|until\|for\|begin\)\>\%(.*[^.:@$]\<end\>\)\@!\|\<do\ze\%(\s*|.*|\)\=\s*$' |
         \ let b:endwise_syngroups = 'crystalModule,crystalClass,crystalLib,crystalMacro,crystalStruct,crystalDefine,crystalConditional,crystalRepeat,crystalControl'
   autocmd FileType sh,zsh
-        \ let b:endwise_subs = { 'if': "\\then\rfi\<Esc>BBA" } |
+        \ let b:endwise_subs = { 'if': "\\then\<C-f>\rfi\<C-f>\<Esc>BBA" } |
         \ let b:endwise_subs.case = 'esac' |
         \ let b:endwise_addition = '\=get(b:endwise_subs, submatch(0), "done")' |
         \ let b:endwise_words = 'if,until,case,do' |
