@@ -132,6 +132,15 @@ function! s:mysearchpair(beginpat,endpat,synidpat)
 endfunction
 
 function! s:crend(always)
+  let keys = s:wrapped(a:always)
+  " If keys starts with a backslash, take it literally (don't append "\<C-O>O")
+  if keys =~ '^\\'
+    let keys = strpart(keys, 1, strlen(keys)-3)
+  end
+  return keys
+endf
+
+function! s:wrapped(always)
   let n = ""
   if !exists("b:endwise_addition") || !exists("b:endwise_words") || !exists("b:endwise_syngroups")
     return n
