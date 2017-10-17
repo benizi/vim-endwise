@@ -32,9 +32,11 @@ augroup endwise " {{{1
         \ let b:endwise_pattern = '^\(.*=\)\?\s*\%(private\s\+\|protected\s\+\|public\s\+\|abstract\s\+\)*\zs\%(module\|class\|lib\|macro\|struct\|union\|enum\|def\|if\|unless\|ifdef\|case\|while\|until\|for\|begin\)\>\%(.*[^.:@$]\<end\>\)\@!\|\<do\ze\%(\s*|.*|\)\=\s*$' |
         \ let b:endwise_syngroups = 'crystalModule,crystalClass,crystalLib,crystalMacro,crystalStruct,crystalDefine,crystalConditional,crystalRepeat,crystalControl'
   autocmd FileType sh,zsh
-        \ let b:endwise_addition = '\=submatch(0)=="then" ? "fi" : submatch(0)=="case" ? "esac" : "done"' |
-        \ let b:endwise_words = 'then,case,do' |
-        \ let b:endwise_pattern = '\%(^\s*\zscase\>\ze\|\zs\<\%(do\|then\)\ze\s*$\)' |
+        \ let b:endwise_subs = { 'if': "\\then\rfi\<Esc>BBA" } |
+        \ let b:endwise_subs.case = 'esac' |
+        \ let b:endwise_addition = '\=get(b:endwise_subs, submatch(0), "done")' |
+        \ let b:endwise_words = 'if,until,case,do' |
+        \ let b:endwise_pattern = '\%(^\s*\zs\%(if\|case\)\>\ze\|\zs\<do\ze$\|^\s*\zsdo\s*\ze$\)' |
         \ let b:endwise_syngroups = 'shConditional,shLoop,shIf,shFor,shRepeat,shCaseEsac,zshConditional,zshRepeat,zshDelimiter'
   autocmd FileType vb,vbnet,aspvbs
         \ let b:endwise_addition = 'End &' |
